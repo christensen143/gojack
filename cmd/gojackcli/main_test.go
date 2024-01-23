@@ -63,3 +63,15 @@ func TestGetHands(t *testing.T) {
     }
   }
 }
+
+func TestGetWinner(t *testing.T) {
+  dealerTotal := 20
+  playerTotal := 21
+
+  expected := "You win!"
+  actual := GetWinner(dealerTotal, playerTotal)
+
+  if actual != expected {
+    t.Errorf("GetWinner(%d, %d) expected %s, actual %s", dealerTotal, playerTotal, expected, actual)
+  }
+}
