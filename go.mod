@@ -1,3 +1,3 @@
-module github.com/christensen143/blackjack
+module github.com/christensen143/gojack
 
 go 1.21.0
