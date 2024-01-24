@@ -6,7 +6,7 @@ type Card struct {
 	Suit string
 }
 
-func CardValue(c Card) int {
+func CardValue(c *Card) int {
 	switch c.Type {
 	case "Two":
 		return 2
@@ -33,6 +33,6 @@ func CardValue(c Card) int {
 	}
 }
 
-func IsAceCard(c Card) bool {
+func IsAceCard(c *Card) bool {
 	return c.Type == "Ace"
 }

@@ -10,24 +10,24 @@ import (
 )
 
 // Debug helps debugging the deck of cards
-func Debug(d Deck) {
+func Debug(deck Deck) {
 	if os.Getenv("DEBUG") != "" {
-		for i := 0; i < len(d); i++ {
-			fmt.Printf("Card #%d is a %s of %ss\n", i+1, d[i].Type, d[i].Suit)
+		for i := range deck {
+			fmt.Printf("Card #%d is a %s of %ss\n", i+1, deck[i].Type, deck[i].Suit)
 		}
 	}
 }
 
-func RemoveCard(s Deck, index int, num int) Deck {
-	slice := s
+func RemoveCard(deck Deck, index int, num int) Deck {
+	slice := deck
 	slice = slices.Delete(slice, index, index+num)
 	return slice
 }
 
-func Hit(d Deck, h Hand) (Hand, Deck) {
-	card, deck := Deal(d, 1)
-	newHand := append(h, card...)
-	return newHand, deck
+func Hit(deck Deck, hand Hand) (Hand, Deck) {
+	card, remainingDeck := Deal(deck, 1)
+	newHand := append(hand, card...)
+	return newHand, remainingDeck
 }
 
 func init() {
@@ -35,15 +35,15 @@ func init() {
 	rand.New(source)
 }
 
-func GetTotal(h Hand) int {
+func GetTotal(hand Hand) int {
 	var total int
 	var containsAce int
-	for i := 0; i < len(h); i++ {
-		card := h[i]
-		if IsAceCard(card) {
+	for i := range hand {
+		card := hand[i]
+		if IsAceCard(&card) {
 			containsAce += 1
 		}
-		total += CardValue(card)
+		total += CardValue(&card)
 	}
 
 	if containsAce > 0 && total > 21 {
@@ -55,7 +55,7 @@ func GetTotal(h Hand) int {
 
 func GetWinner(dealerTotal int, playerTotal int) string {
 	if dealerTotal < 22 && dealerTotal > playerTotal {
-		return "Dealer wins!"
+		return "You lose :("
 	} else if dealerTotal == playerTotal {
 		return "Push"
 	}

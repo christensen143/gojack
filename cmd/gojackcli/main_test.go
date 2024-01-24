@@ -13,7 +13,7 @@ func TestCardValue(t *testing.T) {
 	}
 
 	for _, tc := range testCases {
-		actual := CardValue(tc.card)
+		actual := CardValue(&tc.card)
 		if actual != tc.expected {
 			t.Errorf("CardValue(%v) expected %d, actual %d", tc.card, tc.expected, actual)
 		}

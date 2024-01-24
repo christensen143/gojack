@@ -29,27 +29,26 @@ func New() (deck Deck) {
 }
 
 // Shuffle the deck
-func Shuffle(d Deck) Deck {
-	for i := 1; i < len(d); i++ {
+func Shuffle(deck Deck) Deck {
+	for i := range deck {
 		// Create a random int up to the number of cards
 		r := rand.Intn(i + 1)
 
 		// If the current card doesn't match the random
 		// int we generated then we'll switch them out
 		if i != r {
-			d[r], d[i] = d[i], d[r]
+			deck[r], deck[i] = deck[i], deck[r]
 		}
 	}
-	return d
+	return deck
 }
 
 // Deal a specified amount of cards
-func Deal(d Deck, n int) ([]Card, Deck) {
+func Deal(deck Deck, n int) ([]Card, Deck) {
 	var cards []Card
-	deck := d
 	for i := 0; i < n; i++ {
-		cards = append(cards, d[i])
-		deck = RemoveCard(d, i, n)
+		cards = append(cards, deck[i])
+		deck = RemoveCard(deck, i, n)
 	}
 	return cards, deck
 }
